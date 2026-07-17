@@ -11,6 +11,21 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
   });
 });
 
+(function initMobileCta() {
+  const cta = document.querySelector('.mobile-cta');
+  const contact = document.getElementById('kontakt');
+  if (!cta || !contact || !('IntersectionObserver' in window)) return;
+
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      cta.classList.toggle('is-hidden', entry.isIntersecting);
+    },
+    { root: null, threshold: 0.2 }
+  );
+
+  observer.observe(contact);
+})();
+
 (function initGalleryLightbox() {
   const triggers = Array.from(document.querySelectorAll('.gallery-trigger'));
   const lightbox = document.getElementById('lightbox');
