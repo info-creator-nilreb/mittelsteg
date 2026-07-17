@@ -123,10 +123,6 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
 
   const success = document.getElementById('form-success');
   const error = document.getElementById('form-error');
-  const isLocalHost =
-    location.hostname === 'localhost' ||
-    location.hostname === '127.0.0.1' ||
-    location.hostname === '[::1]';
 
   function showSuccess() {
     if (error) {
@@ -143,52 +139,68 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     }
   }
 
-  if (new URLSearchParams(window.location.search).get('success') === 'true') {
-    showSuccess();
+  function showError(message) {
+    if (error) {
+      error.hidden = false;
+      error.textContent = message;
+    }
   }
 
   form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
     if (error) {
       error.hidden = true;
       error.textContent = '';
     }
 
     if (!form.checkValidity()) {
+      form.reportValidity();
       return;
     }
-
-    event.preventDefault();
 
     const submitButton = form.querySelector('button[type="submit"]');
     if (submitButton) {
       submitButton.disabled = true;
     }
 
-    // Lokale Vorschau: kein Netlify-Backend – Erfolgszustand nur simulieren
-    if (isLocalHost) {
-      showSuccess();
-      return;
-    }
-
     try {
       const formData = new FormData(form);
-      const response = await fetch('/', {
+      const endpoint = form.getAttribute('action');
+      const response = await fetch(endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData).toString()
+        body: formData,
+        headers: { Accept: 'application/json' }
       });
 
-      if (!response.ok) {
-        throw new Error('Formular konnte nicht gesendet werden.');
+      const result = await response.json().catch(() => ({}));
+      const failed = !response.ok || result.success === 'false' || result.success === false;
+
+      if (failed) {
+        const needsActivation =
+          typeof result.message === 'string' &&
+          /activation|activate form/i.test(result.message);
+
+        if (needsActivation) {
+          showError(
+            'Der E-Mail-Versand muss einmalig freigeschaltet werden: Bitte im Postfach berlin.alexander@icloud.com die Aktivierungsmail von FormSubmit öffnen und den Link bestätigen. Danach erneut absenden.'
+          );
+        } else {
+          showError(
+            'Die Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an berlin.alexander@icloud.com.'
+          );
+        }
+        if (submitButton) {
+          submitButton.disabled = false;
+        }
+        return;
       }
 
       showSuccess();
     } catch (err) {
-      if (error) {
-        error.hidden = false;
-        error.textContent =
-          'Die Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an berlin.alexander@icloud.com.';
-      }
+      showError(
+        'Die Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an berlin.alexander@icloud.com.'
+      );
       if (submitButton) {
         submitButton.disabled = false;
       }

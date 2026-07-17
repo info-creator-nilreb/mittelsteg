@@ -9,6 +9,9 @@
   <meta property="og:title" content="Baugrundstück Berlin-Pankow für 569.000 € | Mittelsteg 46B" />
   <meta property="og:description" content="Baugrundstück mit 711 m², vorhandener Baugenehmigung und direktem Verkauf durch die Eigentümer. Kaufpreis 569.000 €, keine Käuferprovision." />
   <meta property="og:image" content="assets/images/hero.jpg" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/favicon.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="assets/favicon-180.png" sizes="180x180" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Libre+Caslon+Display&display=swap" rel="stylesheet">
@@ -168,31 +171,25 @@
 
 <section class="gallery" aria-label="Bildergalerie">
   <figure class="gallery-item gallery-main">
-    <button type="button" class="gallery-trigger" data-gallery-index="0" aria-label="Grundstücksfläche vergrößern">
-      <img src="assets/images/grundstueck-weit.jpg" alt="Grundstück in voller Länge" loading="lazy" />
-    </button>
-    <figcaption>Grundstücksfläche</figcaption>
-  </figure>
-  <figure class="gallery-item">
-    <button type="button" class="gallery-trigger" data-gallery-index="1" aria-label="Blick ins Grüne vergrößern">
+    <button type="button" class="gallery-trigger" data-gallery-index="0" aria-label="Blick ins Grüne vergrößern">
       <img src="assets/images/grundstueck-sonne.jpg" alt="Blick zur angrenzenden Grünfläche" loading="lazy" />
     </button>
     <figcaption>Blick ins Grüne</figcaption>
   </figure>
   <figure class="gallery-item">
-    <button type="button" class="gallery-trigger" data-gallery-index="2" aria-label="Gewachsene Umgebung vergrößern">
-      <img src="assets/images/grundstueck-fruehling.jpg" alt="Grundstück aus Gegenrichtung" loading="lazy" />
+    <button type="button" class="gallery-trigger" data-gallery-index="1" aria-label="Gewachsene Umgebung vergrößern">
+      <img src="assets/images/hero.jpg" alt="Grundstück von der Straße aus" loading="lazy" />
     </button>
     <figcaption>Gewachsene Umgebung</figcaption>
   </figure>
   <figure class="gallery-item">
-    <button type="button" class="gallery-trigger" data-gallery-index="3" aria-label="Frühling auf dem Grundstück vergrößern">
+    <button type="button" class="gallery-trigger" data-gallery-index="2" aria-label="Frühling auf dem Grundstück vergrößern">
       <img src="assets/images/apfelbaum.png" alt="Blühender Baum auf dem Grundstück" loading="lazy" />
     </button>
     <figcaption>Frühling auf dem Grundstück</figcaption>
   </figure>
   <figure class="gallery-item">
-    <button type="button" class="gallery-trigger" data-gallery-index="4" aria-label="Natur direkt vor der Tür vergrößern">
+    <button type="button" class="gallery-trigger" data-gallery-index="3" aria-label="Natur direkt vor der Tür vergrößern">
       <img src="assets/images/fuchs.jpg" alt="Fuchs auf der angrenzenden Grünfläche" loading="lazy" />
     </button>
     <figcaption>Natur direkt vor der Tür</figcaption>
@@ -238,9 +235,11 @@
     <h2>Sie interessieren sich für das Grundstück?</h2>
     <p>Gern senden wir Ihnen das vollständige Exposé und weitere Informationen zu. Besichtigungen erfolgen nach individueller Abstimmung.</p>
   </div>
-  <form class="contact-form" name="grundstueck-anfrage" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/">
-    <input type="hidden" name="form-name" value="grundstueck-anfrage" />
-    <p class="hidden"><label>Nicht ausfüllen: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+  <form class="contact-form" name="grundstueck-anfrage" method="POST" action="https://formsubmit.co/ajax/berlin.alexander@icloud.com">
+    <input type="hidden" name="_subject" value="Anfrage Baugrundstück Mittelsteg 46B" />
+    <input type="hidden" name="_template" value="table" />
+    <input type="hidden" name="_captcha" value="false" />
+    <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
     <div class="form-success" id="form-success" hidden role="status" aria-live="polite">
       Vielen Dank. Ihre Anfrage ist eingegangen. Wir senden Ihnen das vollständige Exposé in Kürze zu.
     </div>
@@ -250,7 +249,7 @@
     <label class="field-phone">Telefon (optional)<input name="telefon" autocomplete="tel" /></label>
     <label class="full">Nachricht<textarea name="nachricht" rows="5"></textarea></label>
     <label class="consent full">
-      <input required type="checkbox" name="datenschutz" />
+      <input required type="checkbox" name="datenschutz" value="zugestimmt" />
       <span>Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Angaben zur Bearbeitung der Anfrage zu.</span>
     </label>
     <p class="trust-note full">Ihre Angaben werden ausschließlich zur Bearbeitung Ihrer Anfrage verwendet und nicht an Dritte weitergegeben.</p>

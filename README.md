@@ -11,16 +11,22 @@ Statische, responsive Onepager-Website für den privaten Grundstücksverkauf.
 5. Erschließungsangaben final prüfen
 6. Optional Kaufpreis ergänzen
 
+## Kontaktformular / E-Mail
+
+Das Formular sendet Anfragen über [FormSubmit](https://formsubmit.co) an `berlin.alexander@icloud.com`.
+
+**Wichtig beim ersten Test:** FormSubmit sendet eine Aktivierungs-Mail an diese Adresse.
+Den Bestätigungslink einmal anklicken – erst danach werden Anfragen zugestellt.
+
 ## Schnellster Livegang mit Netlify
 
 1. Ordner als ZIP hochladen oder Repository verbinden
 2. Publish directory: Projektwurzel
-3. Das Formular wird über Netlify Forms verarbeitet (`data-netlify="true"`)
-4. Nach Deployment unter **Forms** Benachrichtigungsadresse konfigurieren
+3. Formular funktioniert host-unabhängig über FormSubmit
 
 ## Vercel / GitHub Pages
 
-Die Seite läuft dort ebenfalls statisch. Das Kontaktformular benötigt dann jedoch einen externen Endpoint, z. B. Formspree, Basin oder eine eigene Serverless Function.
+Die Seite läuft dort ebenfalls statisch. Das Kontaktformular ist bereits über FormSubmit angebunden.
 
 ## Lokale Vorschau
 
