@@ -11,6 +11,16 @@ Statische, responsive Onepager-Website für den privaten Grundstücksverkauf.
 5. Erschließungsangaben final prüfen
 6. Optional Kaufpreis ergänzen
 
+## Suchmaschinen & KI-Crawler
+
+Live-Domain: [https://mittelsteg46b.de/](https://mittelsteg46b.de/)
+
+- Meta-Description, Canonical, Open Graph, Twitter Cards (absolute URLs)
+- strukturierte Daten (Schema.org: RealEstateListing, Place, Product)
+- `robots.txt` mit erlaubten KI-Crawlern und Sitemap-Verweis
+- `sitemap.xml`
+- `llms.txt` für KI-Assistenten (Zusammenfassung der Angebotsdaten)
+
 ## Kontaktformular / E-Mail
 
 Das Formular sendet Anfragen über [FormSubmit](https://formsubmit.co) an `berlin.alexander@icloud.com`.
