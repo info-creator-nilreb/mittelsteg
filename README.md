@@ -28,15 +28,14 @@ Das Formular sendet Anfragen über [FormSubmit](https://formsubmit.co) an `berli
 **Wichtig beim ersten Test:** FormSubmit sendet eine Aktivierungs-Mail an diese Adresse.
 Den Bestätigungslink einmal anklicken – erst danach werden Anfragen zugestellt.
 
-## Schnellster Livegang mit Netlify
+## Deploy mit Vercel
 
-1. Ordner als ZIP hochladen oder Repository verbinden
-2. Publish directory: Projektwurzel
-3. Formular funktioniert host-unabhängig über FormSubmit
+1. Repository auf GitHub mit Vercel verbinden (Framework Preset: Other / keine Build-Command)
+2. Output/Root: Projektwurzel (`.`)
+3. Domain `mittelsteg46b.de` in Vercel unter Domains hinzufügen und DNS umstellen
+4. Formular funktioniert host-unabhängig über FormSubmit
 
-## Vercel / GitHub Pages
-
-Die Seite läuft dort ebenfalls statisch. Das Kontaktformular ist bereits über FormSubmit angebunden.
+Security-Header und Content-Types sind in `vercel.json` hinterlegt.
 
 ## Lokale Vorschau
 
