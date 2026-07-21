@@ -8,7 +8,7 @@ h1,h2{font-family:var(--serif);font-weight:400;line-height:1.05;margin:.15em 0}h
 .facts{display:grid;grid-template-columns:repeat(4,1fr);padding:2.5rem 4vw;border-bottom:1px solid var(--line);background:#f8f6f1}.facts article{padding:0 1.3rem;border-right:1px solid var(--line)}.facts article:last-child{border-right:0}.facts span,.facts strong{display:block}.facts span{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.45rem}.facts strong{font-family:var(--serif);font-size:1.25rem;font-weight:400}
 .editorial,.planning,.location,.contact-section{padding:7rem 6vw;border-bottom:1px solid var(--line)}.split{display:grid;grid-template-columns:minmax(280px,.82fr) minmax(440px,1.35fr);gap:7vw;align-items:center}.copy-block p{max-width:58ch}
 .benefit-list{list-style:none;margin:2rem 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:.85rem 2rem;max-width:40rem;border-top:1px solid var(--line);padding-top:1.4rem}.benefit-list li{position:relative;padding-left:1rem;font-size:.98rem}.benefit-list li::before{content:"";position:absolute;left:0;top:.7em;width:.35rem;height:.35rem;background:var(--forest);border-radius:50%}
-.feature-image img,.sketch-card img,.gallery-item img{width:100%;height:100%;object-fit:cover;display:block}.feature-image{margin:0;height:520px}
+.feature-image img,.feature-image video,.sketch-card img,.gallery-item img{width:100%;height:100%;object-fit:cover;display:block}.feature-image{margin:0;height:520px;overflow:hidden;background:var(--paper)}.feature-image--video{background:#3a4a38 url("assets/images/grundstueck-drohne-poster.jpg") center/cover no-repeat}.feature-video{border:0;outline:0;pointer-events:none;background:#3a4a38}
 .planning{display:grid;grid-template-columns:1fr 1.15fr;gap:6vw;align-items:center;background:#f1eee7}.plan-title{max-width:14ch}.plan-intro{max-width:48ch;margin:1rem 0 1.4rem}.plan-copy ul{padding-left:1.2rem}.plan-links{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem}.sketch-card{margin:0;background:#f1eee7;padding:0}.sketch-card img{aspect-ratio:590/545;object-fit:contain;background:#f1eee7}.sketch-card figcaption{font-size:.78rem;color:var(--muted);margin-top:.7rem}
 .location{display:grid;grid-template-columns:.75fr 1.25fr;gap:7vw}.distance-grid{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line)}.distance-grid article{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;padding:1.15rem 0;border-bottom:1px solid var(--line)}.distance-grid article:nth-child(odd){padding-right:1.5rem}.distance-grid article:nth-child(even){padding-left:1.5rem;border-left:1px solid var(--line)}.distance-grid span{font-size:.95rem;max-width:16ch}.distance-meta{text-align:right}.distance-meta strong{display:block;font-family:var(--serif);font-size:1.2rem;font-weight:400}.distance-meta em{display:block;font-style:normal;font-size:.82rem;color:var(--muted);margin-top:.25rem}
 .gallery{display:grid;grid-template-columns:1.55fr 1fr 1fr 1fr;gap:6px;padding:6px;background:#fff}.gallery-item{margin:0;position:relative;overflow:hidden;background:#111;min-height:300px}.gallery-main{min-height:300px}.gallery-trigger{display:block;width:100%;height:100%;padding:0;border:0;background:transparent;cursor:zoom-in;position:relative}.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease;min-height:300px}.gallery-trigger:hover img,.gallery-trigger:focus-visible img{transform:scale(1.025)}.gallery-trigger:focus-visible{outline:2px solid #fff;outline-offset:-2px}.gallery-item figcaption{position:absolute;left:0;right:0;bottom:0;padding:.7rem .9rem;background:linear-gradient(transparent,rgba(13,28,19,.72));color:#fff;font-size:.78rem;pointer-events:none}
@@ -40,6 +40,7 @@ footer{padding:3rem 6vw;background:#18271e;color:#fff;display:grid;grid-template
   .facts article:nth-last-child(-n+2){border-bottom:0;padding-bottom:0}
   .split,.planning,.location,.contact-section,.price-section{grid-template-columns:1fr}
   .feature-image{height:420px}
+  .feature-image--video{height:auto;aspect-ratio:16/9}
   .plan-title{max-width:none}
   .gallery{grid-template-columns:1fr 1fr}
   .gallery-main{grid-column:1/-1;min-height:320px}
@@ -74,6 +75,7 @@ footer{padding:3rem 6vw;background:#18271e;color:#fff;display:grid;grid-template
   .editorial,.planning,.location,.contact-section,.price-section{padding:5rem 7vw}
   .benefit-list{grid-template-columns:1fr}
   .feature-image{height:340px}
+  .feature-image--video{height:auto;aspect-ratio:16/9}
   .plan-title br{display:none}
   .gallery{grid-template-columns:1fr}
   .gallery-main{grid-column:auto;min-height:260px}

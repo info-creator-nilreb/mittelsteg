@@ -222,3 +222,127 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     }
   });
 })();
+
+
+(function initFeatureVideo() {
+  const video = document.querySelector('.feature-video');
+  if (!video) return;
+
+  const src = video.getAttribute('data-src');
+  if (!src) return;
+
+  const PLAYBACK_RATE = 0.7;
+  // Skip the bright end frame / browser loop flash by restarting slightly early.
+  const LOOP_PAD = 0.28;
+  const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let sourceLoaded = false;
+  let restarting = false;
+
+  function loadSource() {
+    if (sourceLoaded) return;
+    video.preload = 'metadata';
+    video.src = src;
+    sourceLoaded = true;
+  }
+
+  function playSafely() {
+    video.muted = true;
+    video.playbackRate = PLAYBACK_RATE;
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(function () {});
+    }
+  }
+
+  function pauseVideo() {
+    if (!video.paused) {
+      video.pause();
+    }
+  }
+
+  function restartSeamless() {
+    if (restarting) return;
+    restarting = true;
+    try {
+      video.currentTime = 0.04;
+    } catch (err) {
+      /* ignore seek errors during load */
+    }
+    playSafely();
+    window.setTimeout(function () {
+      restarting = false;
+    }, 120);
+  }
+
+  video.addEventListener('loadedmetadata', function () {
+    video.playbackRate = PLAYBACK_RATE;
+  });
+
+  video.addEventListener('ratechange', function () {
+    if (video.playbackRate !== PLAYBACK_RATE && !reducedMotionQuery.matches) {
+      video.playbackRate = PLAYBACK_RATE;
+    }
+  });
+
+  video.addEventListener('timeupdate', function () {
+    if (!video.duration || restarting || video.paused) return;
+    if (video.currentTime >= video.duration - LOOP_PAD) {
+      restartSeamless();
+    }
+  });
+
+  video.addEventListener('ended', function () {
+    restartSeamless();
+  });
+
+  if (reducedMotionQuery.matches) {
+    return;
+  }
+
+  if (!('IntersectionObserver' in window)) {
+    loadSource();
+    playSafely();
+    return;
+  }
+
+  const preloadObserver = new IntersectionObserver(
+    function (entries) {
+      if (entries[0] && entries[0].isIntersecting) {
+        loadSource();
+        preloadObserver.disconnect();
+      }
+    },
+    { root: null, rootMargin: '240px 0px', threshold: 0 }
+  );
+  preloadObserver.observe(video);
+
+  const playObserver = new IntersectionObserver(
+    function (entries) {
+      const entry = entries[0];
+      if (!entry) return;
+
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
+        loadSource();
+        playSafely();
+      } else {
+        pauseVideo();
+      }
+    },
+    { root: null, threshold: [0, 0.4, 0.75] }
+  );
+  playObserver.observe(video);
+
+  function onMotionPreferenceChange(event) {
+    if (event.matches) {
+      pauseVideo();
+      playObserver.disconnect();
+      preloadObserver.disconnect();
+    }
+  }
+
+  if (typeof reducedMotionQuery.addEventListener === 'function') {
+    reducedMotionQuery.addEventListener('change', onMotionPreferenceChange);
+  } else if (typeof reducedMotionQuery.addListener === 'function') {
+    reducedMotionQuery.addListener(onMotionPreferenceChange);
+  }
+})();
