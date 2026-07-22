@@ -232,7 +232,8 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
   if (!src) return;
 
   const PLAYBACK_RATE = 0.7;
-  // Skip the bright end frame / browser loop flash by restarting slightly early.
+  // Skip white lead-in and the bright end frame / browser loop flash.
+  const START_AT = 0.85;
   const LOOP_PAD = 0.28;
   const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   let sourceLoaded = false;
@@ -264,7 +265,7 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     if (restarting) return;
     restarting = true;
     try {
-      video.currentTime = 0.04;
+      video.currentTime = START_AT;
     } catch (err) {
       /* ignore seek errors during load */
     }
@@ -276,6 +277,13 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
 
   video.addEventListener('loadedmetadata', function () {
     video.playbackRate = PLAYBACK_RATE;
+    if (video.currentTime < START_AT) {
+      try {
+        video.currentTime = START_AT;
+      } catch (err) {
+        /* ignore */
+      }
+    }
   });
 
   video.addEventListener('ratechange', function () {
