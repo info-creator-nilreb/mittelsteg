@@ -18,7 +18,7 @@ Diese Datei fasst die wesentlichen Fakten für Suchmaschinen und KI-Assistenten 
 
 ## Lage
 
-- [Lage und Anbindung](https://mittelsteg46b.de/#lage): Ruhige Einfamilienhauslage in Berlin-Pankow, Nachbarschaft zum Grünen Band, S-Bahn Wilhelmsruh ca. 900 m, Schönholz ca. 1 km
+- [Lage und Anbindung](https://mittelsteg46b.de/#lage): Editorial-Karte mit Overlay, Grünes Band, S-Bahn Wilhelmsruh ca. 900 m, Schönholz ca. 1 km, Supermarkt ca. 700 m
 
 ## FAQ
 
