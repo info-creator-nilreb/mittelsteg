@@ -11,7 +11,7 @@ const OUT_W = 1400;
 const OUT_H = 980;
 const TILE = 256;
 const TILE_URL = (x, y, z) =>
-  `https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/${z}/${x}/${y}.png`;
+  `https://cartodb-basemaps-a.global.ssl.fastly.net/light_nolabels/${z}/${x}/${y}.png`;
 
 function latLonToWorld(lat, lon, zoom) {
   const scale = TILE * 2 ** zoom;
@@ -35,6 +35,16 @@ async function fetchTile(x, y, z) {
   const res = await fetch(TILE_URL(x, y, z));
   if (!res.ok) throw new Error(`Tile ${x}/${y}/${z} failed: ${res.status}`);
   return Buffer.from(await res.arrayBuffer());
+}
+
+async function stylizeMap(buffer) {
+  return sharp(buffer)
+    .modulate({ saturation: 0.22, brightness: 1.08 })
+    .blur(0.7)
+    .sharpen({ sigma: 0.9, m1: 0.4, m2: 0.8 })
+    .tint({ r: 248, g: 246, b: 241 })
+    .png()
+    .toBuffer();
 }
 
 async function main() {
@@ -66,12 +76,12 @@ async function main() {
   const cropLeft = Math.max(0, Math.round(originX - OUT_W / 2));
   const cropTop = Math.max(0, Math.round(originY - OUT_H / 2));
 
-  const base = await sharp({
+  const raw = await sharp({
     create: {
       width: canvasW,
       height: canvasH,
       channels: 3,
-      background: '#eef0f2'
+      background: '#f5f2eb'
     }
   })
     .composite(composites)
@@ -81,12 +91,11 @@ async function main() {
       width: Math.min(OUT_W, canvasW - cropLeft),
       height: Math.min(OUT_H, canvasH - cropTop)
     })
-    .modulate({ saturation: 0.72, brightness: 1.03 })
     .png()
     .toBuffer();
 
-  const markers = buildMarkersSvg(OUT_W, OUT_H);
-  const markerBuf = Buffer.from(markers);
+  const base = await stylizeMap(raw);
+  const markerBuf = Buffer.from(buildMarkersSvg(OUT_W, OUT_H));
 
   const pngPath = join(root, 'assets/images/lage-karte.png');
   await sharp(base)
@@ -103,8 +112,6 @@ async function main() {
 function buildMarkersSvg(w, h) {
   const pinX = Math.round(w * 0.5);
   const pinY = Math.round(h * 0.54);
-  const lidlX = Math.round(w * 0.72);
-  const lidlY = Math.round(h * 0.28);
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
@@ -113,11 +120,6 @@ function buildMarkersSvg(w, h) {
       <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1f2a23" flood-opacity="0.18"/>
     </filter>
   </defs>
-  <g opacity="0.92">
-    <rect x="${Math.round(w * 0.62)}" y="${Math.round(h * 0.12)}" width="${Math.round(w * 0.3)}" height="42" rx="4" fill="#d8e6d2"/>
-    <text x="${Math.round(w * 0.77)}" y="${Math.round(h * 0.155)}" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" fill="#5f7158">Gr&#252;nes Band</text>
-  </g>
-  ${lidlMarker(lidlX, lidlY)}
   <g filter="url(#shadow)">
     <path d="M ${pinX} ${pinY - 34} C ${pinX - 16} ${pinY - 34}, ${pinX - 16} ${pinY - 12}, ${pinX} ${pinY + 8} C ${pinX + 16} ${pinY - 12}, ${pinX + 16} ${pinY - 34}, ${pinX} ${pinY - 34} Z" fill="#1f2a23"/>
     <circle cx="${pinX}" cy="${pinY - 20}" r="6" fill="#fff"/>
@@ -132,18 +134,10 @@ function buildMarkersSvg(w, h) {
 </svg>`;
 }
 
-function lidlMarker(x, y) {
-  return `<g>
-    <rect x="${x - 8}" y="${y - 8}" width="16" height="16" rx="2" fill="#fff" stroke="#d8d3c8"/>
-    <text x="${x}" y="${y + 4}" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="700" fill="#6c726d">L</text>
-    <text x="${x + 16}" y="${y + 4}" font-family="Arial,sans-serif" font-size="12" fill="#1f2a23">Lidl</text>
-  </g>`;
-}
-
 function buildFallbackSvg() {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 980" aria-hidden="true">
-  <rect width="1400" height="980" fill="#eef0f2"/>
+  <rect width="1400" height="980" fill="#f5f2eb"/>
   <text x="700" y="490" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#6c726d">Karte: Mittelsteg 46B, Berlin-Pankow</text>
 </svg>`;
 }
