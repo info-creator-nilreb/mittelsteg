@@ -11,6 +11,33 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
   });
 });
 
+(function initSiteConfig() {
+  const config = window.SITE_CONFIG;
+  if (!config) return;
+
+  const updatedEl = document.querySelector('[data-config="listing-updated"]');
+  if (updatedEl) {
+    updatedEl.dateTime = config.listingLastUpdated;
+    updatedEl.textContent = config.listingLastUpdatedLabel;
+  }
+})();
+
+(function initFaqAccordion() {
+  const items = Array.from(document.querySelectorAll('.faq-item'));
+  if (!items.length) return;
+
+  items.forEach((item) => {
+    item.addEventListener('toggle', () => {
+      if (!item.open) return;
+      items.forEach((other) => {
+        if (other !== item) {
+          other.open = false;
+        }
+      });
+    });
+  });
+})();
+
 (function initMobileCta() {
   const cta = document.querySelector('.mobile-cta');
   const contact = document.getElementById('kontakt');
