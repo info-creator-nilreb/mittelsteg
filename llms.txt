@@ -1,8 +1,8 @@
 # Mittelsteg 46B
 
-> Provisionsfreier Privatverkauf eines 710 m² Baugrundstücks in 13158 Berlin-Pankow (Niederschönhausen) mit vorhandener Baugenehmigung. Kaufpreis 569.000 €. Direkter Verkauf durch die Eigentümer, keine Käuferprovision.
+> Privatverkauf eines 710 m² Baugrundstücks in 13158 Berlin-Pankow mit vorhandener Baugenehmigung für ein Einfamilienhaus. Kaufpreis 569.000 €. Direkter Verkauf durch die Eigentümer, keine Käuferprovision.
 
-Diese Datei fasst die wesentlichen Fakten für Suchmaschinen und KI-Assistenten zusammen. Adresse: Mittelsteg 46B, 13158 Berlin-Pankow. Medien: Wasser, Strom und Gas anliegend. Besonderheit: ruhige Einfamilienhauslage mit Blick auf angrenzende Grünfläche; kein Altbestand, keine Abrisskosten.
+Diese Datei fasst die wesentlichen Fakten für Suchmaschinen und KI-Assistenten zusammen. Adresse: Mittelsteg 46B, 13158 Berlin-Pankow. Erschließung: Strom und Wasser auf dem Grundstück, Gas in der Straße, Abwasser über im Zuge der Bebauung herzustellende Sammelgrube. Besonderheit: ruhige Einfamilienhauslage mit Blick auf angrenzende Grünfläche; kein Altbestand, keine Abrisskosten.
 
 ## Hauptseiten
 
@@ -11,13 +11,18 @@ Diese Datei fasst die wesentlichen Fakten für Suchmaschinen und KI-Assistenten 
 
 ## Angebot
 
-- [Grundstücksdetails](https://mittelsteg46b.de/#grundstueck): 710 m², Baugenehmigung vorhanden, provisionsfreier Privatverkauf durch die Eigentümer
-- [Bebauungskonzept](https://mittelsteg46b.de/#planung): Genehmigtes Einfamilienhaus ca. 7 × 13 m, drei Schlafzimmer, Terrasse, Carport, ca. 130–135 m² Wohnfläche
+- [Grundstück auf einen Blick](https://mittelsteg46b.de/#auf-einen-blick): 710 m², 569.000 €, Baugenehmigung vorhanden, Privatverkauf ohne Käuferprovision
+- [Grundstücksdetails](https://mittelsteg46b.de/#grundstueck): Baugenehmigung vorhanden, kein Altbestand, geplante Wohnfläche ca. 130–135 m²
+- [Bebauungskonzept](https://mittelsteg46b.de/#planung): Genehmigtes Einfamilienhaus ca. 7 × 13 m, drei Schlafzimmer, Terrasse, Carport
 - [Kaufpreis](https://mittelsteg46b.de/#kaufpreis): 569.000 € inkl. Baugenehmigung, genehmigter Grundrisse und Planungsunterlagen
 
 ## Lage
 
 - [Lage und Anbindung](https://mittelsteg46b.de/#lage): S-Bahn Wilhelmsruh ca. 900 m, Bushaltestelle ca. 300 m, ruhige Einfamilienhaussiedlung in Berlin-Pankow
+
+## FAQ
+
+- [Häufige Fragen](https://mittelsteg46b.de/#faq): Baugenehmigung (Juni 2024), genehmigte Planung, Erschließung, keine Käuferprovision, kein Altbestand
 
 ## Optional
 
