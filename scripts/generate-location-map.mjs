@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CENTER = { lat: 52.5776396, lon: 13.3740750 };
-const ZOOM = 15;
+const ZOOM = 17;
 const OUT_W = 1400;
 const OUT_H = 980;
 const TILE = 256;
@@ -101,14 +101,10 @@ async function main() {
 }
 
 function buildMarkersSvg(w, h) {
-  const pinX = Math.round(w * 0.42);
-  const pinY = Math.round(h * 0.52);
-  const wilX = Math.round(w * 0.34);
-  const wilY = Math.round(h * 0.78);
-  const schoX = Math.round(w * 0.18);
-  const schoY = Math.round(h * 0.42);
-  const lidlX = Math.round(w * 0.58);
-  const lidlY = Math.round(h * 0.36);
+  const pinX = Math.round(w * 0.5);
+  const pinY = Math.round(h * 0.54);
+  const lidlX = Math.round(w * 0.72);
+  const lidlY = Math.round(h * 0.28);
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
@@ -118,11 +114,9 @@ function buildMarkersSvg(w, h) {
     </filter>
   </defs>
   <g opacity="0.92">
-    <rect x="${Math.round(w * 0.58)}" y="${Math.round(h * 0.08)}" width="${Math.round(w * 0.34)}" height="42" rx="4" fill="#d8e6d2"/>
-    <text x="${Math.round(w * 0.75)}" y="${Math.round(h * 0.115)}" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" fill="#5f7158">Gr&#252;nes Band (ehem. Mauerstreifen)</text>
+    <rect x="${Math.round(w * 0.62)}" y="${Math.round(h * 0.12)}" width="${Math.round(w * 0.3)}" height="42" rx="4" fill="#d8e6d2"/>
+    <text x="${Math.round(w * 0.77)}" y="${Math.round(h * 0.155)}" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" fill="#5f7158">Gr&#252;nes Band</text>
   </g>
-  ${sCircle(schoX, schoY, 'S Sch&#246;nholz', 'ca. 1,0 km')}
-  ${sCircle(wilX, wilY, 'S Wilhelmsruh', 'ca. 900 m')}
   ${lidlMarker(lidlX, lidlY)}
   <g filter="url(#shadow)">
     <path d="M ${pinX} ${pinY - 34} C ${pinX - 16} ${pinY - 34}, ${pinX - 16} ${pinY - 12}, ${pinX} ${pinY + 8} C ${pinX + 16} ${pinY - 12}, ${pinX + 16} ${pinY - 34}, ${pinX} ${pinY - 34} Z" fill="#1f2a23"/>
@@ -136,16 +130,6 @@ function buildMarkersSvg(w, h) {
   </g>
   <text x="${w - 16}" y="${h - 14}" text-anchor="end" font-family="Arial,sans-serif" font-size="11" fill="#8a8f8b">Kartendaten &#169; OpenStreetMap</text>
 </svg>`;
-}
-
-function sCircle(x, y, label, distance) {
-  return `<g>
-    <circle cx="${x}" cy="${y}" r="14" fill="#fff" stroke="#d8d3c8" stroke-width="1"/>
-    <circle cx="${x}" cy="${y}" r="10" fill="#3d7a49"/>
-    <text x="${x}" y="${y + 4}" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#fff">S</text>
-    <text x="${x + 20}" y="${y - 2}" font-family="Arial,sans-serif" font-size="12" font-weight="600" fill="#1f2a23">${label}</text>
-    <text x="${x + 20}" y="${y + 14}" font-family="Arial,sans-serif" font-size="11" fill="#6c726d">${distance}</text>
-  </g>`;
 }
 
 function lidlMarker(x, y) {
