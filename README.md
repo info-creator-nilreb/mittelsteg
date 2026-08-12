@@ -23,21 +23,17 @@ Live-Domain: [https://mittelsteg46b.de/](https://mittelsteg46b.de/)
 
 ## Kontaktformular / E-Mail
 
-Das Formular sendet Anfragen über [Web3Forms](https://web3forms.com) an `berlin.alexander@icloud.com`.
+Das Formular sendet Anfragen über [FormSubmit](https://formsubmit.co) an `berlin.alexander@icloud.com`.
 
-**Einmalige Einrichtung:**
-
-1. Auf [web3forms.com](https://web3forms.com) mit `berlin.alexander@icloud.com` einen Access Key anfordern
-2. Den erhaltenen Key in `site-config.js` unter `contactFormAccessKey` eintragen
-3. Optional in Web3Forms die Domain `mittelsteg46b.de` als erlaubte Herkunft eintragen
-4. Deployen – danach können Besucher das Formular direkt absenden
+**Wichtig beim ersten Test:** FormSubmit sendet eine Aktivierungs-Mail an diese Adresse.
+Den Bestätigungslink einmal anklicken – erst danach werden Anfragen zugestellt.
 
 ## Deploy mit Vercel
 
 1. Repository auf GitHub mit Vercel verbinden (Framework Preset: Other / keine Build-Command)
 2. Output/Root: Projektwurzel (`.`)
 3. Domain `mittelsteg46b.de` in Vercel unter Domains hinzufügen und DNS umstellen
-4. Formularversand läuft über Web3Forms (Access Key in `site-config.js`)
+4. Formular funktioniert host-unabhängig über FormSubmit
 
 Security-Header und Content-Types sind in `vercel.json` hinterlegt.
 

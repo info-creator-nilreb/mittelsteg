@@ -11,7 +11,5 @@ window.SITE_CONFIG = Object.freeze({
   listingLastUpdatedLabel: '25. Juli 2026',
   datePosted: '2026-07-17',
   dateModified: '2026-07-25',
-  availabilityLabel: 'Aktuell verfügbar',
-  // Access Key von https://web3forms.com mit berlin.alexander@icloud.com anfordern
-  contactFormAccessKey: ''
+  availabilityLabel: 'Aktuell verfügbar'
 });
