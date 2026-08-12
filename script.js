@@ -206,32 +206,50 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
       submitButton.disabled = true;
     }
 
+    const accessKey = window.SITE_CONFIG?.contactFormAccessKey;
+    if (!accessKey) {
+      showError(
+        'Das Kontaktformular ist derzeit nicht eingerichtet. Bitte schreiben Sie direkt an berlin.alexander@icloud.com.'
+      );
+      if (submitButton) {
+        submitButton.disabled = false;
+      }
+      return;
+    }
+
     try {
       const formData = new FormData(form);
-      const endpoint = form.getAttribute('action');
-      const response = await fetch(endpoint, {
+      const honey = String(formData.get('_honey') || '').trim();
+      if (honey) {
+        showSuccess();
+        return;
+      }
+
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        body: formData,
-        headers: { Accept: 'application/json' }
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: 'Anfrage Baugrundstück Mittelsteg 46B',
+          from_name: 'Mittelsteg 46B Kontaktformular',
+          botcheck: '',
+          name: formData.get('name'),
+          email: formData.get('email'),
+          telefon: formData.get('telefon') || '',
+          nachricht: formData.get('nachricht') || ''
+        })
       });
 
       const result = await response.json().catch(() => ({}));
       const failed = !response.ok || result.success === 'false' || result.success === false;
 
       if (failed) {
-        const needsActivation =
-          typeof result.message === 'string' &&
-          /activation|activate form/i.test(result.message);
-
-        if (needsActivation) {
-          showError(
-            'Der E-Mail-Versand muss einmalig freigeschaltet werden: Bitte im Postfach berlin.alexander@icloud.com die Aktivierungsmail von FormSubmit öffnen und den Link bestätigen. Danach erneut absenden.'
-          );
-        } else {
-          showError(
-            'Die Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an berlin.alexander@icloud.com.'
-          );
-        }
+        showError(
+          'Die Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an berlin.alexander@icloud.com.'
+        );
         if (submitButton) {
           submitButton.disabled = false;
         }
